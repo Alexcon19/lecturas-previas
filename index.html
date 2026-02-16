@@ -3,102 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Física: Energía, Calor y Trabajo con IA</title>
+    <title>FísicaInteractiva Pro - Laboratorio Virtual</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        .chat-enter { animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .loading-dots:after { content: ' .'; animation: dots 1s steps(5, end) infinite; }
-        @keyframes dots { 0%, 20% { content: ' .'; } 40% { content: ' ..'; } 60% { content: ' ...'; } 80%, 100% { content: ''; } }
-        #chat-messages::-webkit-scrollbar { width: 6px; }
-        #chat-messages::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
+        .gradient-bg { background: linear-gradient(135deg, #312e81 0%, #1e1b4b 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
+        @keyframes slideUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-up { animation: slideUp 0.3s ease-out forwards; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+<body class="bg-slate-100 text-slate-900 font-sans min-h-screen">
 
-    <header class="bg-indigo-700 text-white shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-xl md:text-2xl font-bold flex items-center gap-2">
-                <i data-lucide="atom" class="w-6 h-6 text-indigo-300"></i>
-                Física Interactiva ✨
-            </h1>
-            <div id="connection-status" class="text-xs bg-indigo-800 px-3 py-1 rounded-full border border-indigo-400 flex items-center gap-2">
-                <span id="status-dot" class="w-2 h-2 bg-yellow-400 rounded-full"></span> 
-                <span id="status-text">Verificando conexión...</span>
+    <!-- Header Optimizado para Web -->
+    <header class="gradient-bg text-white py-6 px-6 shadow-xl relative">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <div class="bg-yellow-400 p-2 rounded-lg shadow-[0_0_15px_rgba(250,204,21,0.4)]">
+                    <i data-lucide="zap" class="text-indigo-900 fill-indigo-900"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black tracking-tight">FÍSICA INTERACTIVA 2.0</h1>
+                    <p class="text-indigo-200 text-xs uppercase tracking-widest font-bold">Laboratorio de Energía y Trabajo</p>
+                </div>
+            </div>
+            <div id="status-indicator" class="flex items-center gap-2 bg-black/20 px-4 py-2 rounded-full border border-white/10">
+                <div id="status-dot" class="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse"></div>
+                <span id="status-text" class="text-[10px] font-bold uppercase">Sistema Listo (GitHub Pages)</span>
             </div>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <main class="container mx-auto p-4 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <!-- Contenido Teórico -->
-        <div class="lg:col-span-2 space-y-6">
-            <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-white p-5 rounded-xl shadow-sm border-t-4 border-yellow-400">
-                    <h2 class="font-bold flex items-center gap-2 text-yellow-700"><i data-lucide="zap"></i> Energía</h2>
-                    <p class="text-sm mt-2 text-slate-600 italic">Capacidad de transformar el entorno.</p>
+        <!-- Área de Experimentos (Izquierda) -->
+        <div class="lg:col-span-7 space-y-6">
+            
+            <!-- Simulador de Energía -->
+            <section class="glass-card p-6 rounded-2xl shadow-lg border border-slate-200">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <i data-lucide="gauge" class="text-indigo-600"></i> Simulación Cinética
+                    </h2>
+                    <div class="flex gap-2">
+                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-md text-[10px] font-bold">m = 1.0 kg</span>
+                        <span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-md text-[10px] font-bold">g = 9.8 m/s²</span>
+                    </div>
                 </div>
-                <div class="bg-white p-5 rounded-xl shadow-sm border-t-4 border-red-500">
-                    <h2 class="font-bold flex items-center gap-2 text-red-700"><i data-lucide="flame"></i> Calor</h2>
-                    <p class="text-sm mt-2 text-slate-600 italic">Energía térmica en movimiento.</p>
-                </div>
-                <div class="bg-white p-5 rounded-xl shadow-sm border-t-4 border-blue-500">
-                    <h2 class="font-bold flex items-center gap-2 text-blue-700"><i data-lucide="hammer"></i> Trabajo</h2>
-                    <p class="text-sm mt-2 text-slate-600 italic">Fuerza que genera movimiento.</p>
+
+                <div class="bg-slate-900 rounded-2xl p-8 text-white">
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                            <span class="text-[10px] text-slate-400 uppercase font-bold">Energía Potencial</span>
+                            <div id="ep-display" class="text-3xl font-mono text-blue-400">0.0 J</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                            <span class="text-[10px] text-slate-400 uppercase font-bold">Energía Cinética</span>
+                            <div id="ek-display" class="text-3xl font-mono text-yellow-400">0.0 J</div>
+                        </div>
+                    </div>
+                    
+                    <div class="h-48 bg-slate-800 rounded-xl relative flex items-end justify-center border-b-4 border-indigo-500 overflow-hidden">
+                        <!-- Guía de altura -->
+                        <div class="absolute left-4 top-0 bottom-0 w-px bg-slate-700 flex flex-col justify-between text-[10px] text-slate-500 py-2">
+                            <span>10m</span><span>5m</span><span>0m</span>
+                        </div>
+                        <div id="ball" class="w-12 h-12 bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-full absolute transition-all duration-300 shadow-[0_0_30px_rgba(99,102,241,0.4)]" style="bottom: 10px;"></div>
+                    </div>
+
+                    <div class="mt-8 space-y-6">
+                        <input type="range" id="height-input" min="0" max="100" value="0" 
+                            class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+                        
+                        <div class="flex gap-3">
+                            <button onclick="runSimulation()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 py-4 rounded-xl font-bold transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2">
+                                <i data-lucide="play" class="w-5 h-5"></i> INICIAR CAÍDA
+                            </button>
+                            <button onclick="resetSimulation()" class="bg-slate-700 hover:bg-slate-600 px-6 rounded-xl transition">
+                                <i data-lucide="refresh-ccw" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Área de Retos -->
-            <div id="challenge-box" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
-                <div class="bg-indigo-50 p-4 rounded-full mb-4">
-                    <i data-lucide="brain-circuit" class="w-10 h-10 text-indigo-600"></i>
+            <!-- Bloques Informativos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-slate-800 flex items-center gap-2 mb-2 italic">
+                        <i data-lucide="info" class="w-4 h-4 text-indigo-500"></i> ¿Qué observar?
+                    </h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Observa cómo la <strong>Energía Potencial</strong> (azul) disminuye mientras la <strong>Cinética</strong> (amarilla) aumenta. ¡La energía total siempre es la misma!
+                    </p>
                 </div>
-                <h3 class="text-xl font-bold">Laboratorio Virtual de Desafíos</h3>
-                <p class="text-slate-500 mt-2 max-w-md">Presiona el botón para que la IA diseñe un experimento mental para ti.</p>
-                <button onclick="generarDesafio()" class="mt-6 bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-indigo-700 transition-all flex items-center gap-2 shadow-md hover:shadow-indigo-200 active:scale-95">
-                    <i data-lucide="sparkles" class="w-5 h-5"></i> Crear reto personalizado
-                </button>
-            </div>
-
-            <!-- Ayuda Técnica (Oculta por defecto) -->
-            <div id="tech-help" class="hidden bg-orange-50 p-6 rounded-xl border border-orange-200">
-                <h4 class="font-bold text-orange-800 flex items-center gap-2 mb-2">
-                    <i data-lucide="alert-triangle"></i> Guía de Solución de Conexión
-                </h4>
-                <ul class="text-sm text-orange-700 space-y-2 list-disc ml-5">
-                    <li><strong>Botón Preview:</strong> Si estás en el chat, usa el botón "Preview" arriba a la derecha. Es la forma más estable.</li>
-                    <li><strong>Servidor Local:</strong> Si lo abriste como archivo descargado, el navegador bloquea la IA por seguridad. Prueba subirlo a <a href="https://netlify.com/drop" target="_blank" class="underline font-bold">Netlify Drop</a>.</li>
-                    <li><strong>Extensiones:</strong> Desactiva bloqueadores de anuncios (AdBlock) para esta página.</li>
-                </ul>
+                <div class="bg-indigo-600 p-5 rounded-xl shadow-lg text-white">
+                    <h3 class="font-bold flex items-center gap-2 mb-2 italic">
+                        <i data-lucide="help-circle" class="w-4 h-4 text-indigo-200"></i> Reto para clase
+                    </h3>
+                    <p class="text-xs text-indigo-100 leading-relaxed font-medium">
+                        ¿A qué altura la Energía Cinética es exactamente igual a la Energía Potencial? Usa el chat para descubrirlo.
+                    </p>
+                </div>
             </div>
         </div>
 
-        <!-- Chat con el Tutor -->
-        <div class="lg:col-span-1">
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col h-[550px] border border-slate-200 relative">
-                
-                <div id="chat-messages" class="flex-1 p-4 overflow-y-auto bg-slate-50/50 space-y-4">
-                    <div class="flex gap-2 chat-enter">
-                        <div class="bg-indigo-600 text-white p-3 rounded-2xl rounded-tl-none text-sm shadow-sm">
-                            ¡Hola! Soy tu tutor de Física. Estoy listo para ayudarte a entender la energía. 📚
+        <!-- Chat con Tutor IA (Derecha) -->
+        <div class="lg:col-span-5">
+            <div class="glass-card rounded-2xl shadow-xl flex flex-col h-[650px] border border-slate-200 overflow-hidden sticky top-8">
+                <div class="bg-slate-50 p-5 border-b border-slate-100 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                            <i data-lucide="bot" class="text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-slate-800 block text-sm">Tutor Newton</span>
+                            <span class="text-[9px] text-green-500 font-bold uppercase tracking-widest">IA en tiempo real</span>
+                        </div>
+                    </div>
+                    <button onclick="clearChat()" class="text-slate-400 hover:text-red-500 transition">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <div id="chat-box" class="flex-1 p-5 overflow-y-auto space-y-4 bg-slate-50/50 custom-scrollbar">
+                    <!-- Mensaje Inicial -->
+                    <div class="animate-up flex gap-3">
+                        <div class="bg-white border border-slate-200 p-4 rounded-2xl rounded-tl-none text-xs text-slate-700 shadow-sm max-w-[85%] leading-relaxed">
+                            ¡Hola! Soy tu asistente virtual. He sido configurado para ayudarte a entender las leyes de la física. 🍎
+                            <br><br>
+                            ¿Tienes alguna duda sobre el experimento de la izquierda o alguna fórmula?
                         </div>
                     </div>
                 </div>
 
-                <!-- Cargando -->
-                <div id="loading-indicator" class="hidden absolute bottom-20 left-4 right-4 bg-white/95 backdrop-blur-sm p-3 rounded-lg border border-indigo-100 text-xs text-indigo-600 font-bold text-center shadow-lg">
-                    <span class="loading-dots italic">Consultando a la IA</span>
+                <div id="ai-typing" class="hidden px-5 py-2 text-[10px] text-indigo-500 font-bold animate-pulse italic">
+                    Newton está redactando una explicación...
                 </div>
 
-                <!-- Input -->
-                <div class="p-3 bg-white border-t border-slate-100">
+                <div class="p-5 bg-white border-t border-slate-100">
                     <div class="flex gap-2">
-                        <input type="text" id="user-input" 
-                            class="flex-1 px-4 py-2 bg-slate-100 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 text-sm"
-                            placeholder="Escribe tu duda física..."
-                            onkeypress="if(event.key==='Enter') enviarMensaje()">
-                        <button onclick="enviarMensaje()" class="bg-indigo-600 text-white p-2 rounded-xl hover:bg-indigo-700 transition-all shadow-sm active:scale-90">
+                        <input type="text" id="user-msg" 
+                            class="flex-1 px-4 py-3 bg-slate-100 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 text-xs outline-none transition-all shadow-inner"
+                            placeholder="Escribe tu pregunta aquí..."
+                            onkeypress="if(event.key==='Enter') sendMessage()">
+                        <button onclick="sendMessage()" class="bg-indigo-600 text-white p-3 rounded-xl hover:bg-indigo-700 shadow-md active:scale-90 transition">
                             <i data-lucide="send" class="w-5 h-5"></i>
                         </button>
                     </div>
@@ -109,120 +160,115 @@
 
     <script>
         lucide.createIcons();
-        
-        // Clave inyectada por el entorno
-        const apiKey = ""; 
 
-        // Función de comunicación centralizada
-        async function fetchGemini(prompt, systemInstruction) {
+        // --- LÓGICA DE SIMULACIÓN ---
+        const ball = document.getElementById('ball');
+        const heightInput = document.getElementById('height-input');
+        const epDisplay = document.getElementById('ep-display');
+        const ekDisplay = document.getElementById('ek-display');
+
+        heightInput.addEventListener('input', () => {
+            const h = heightInput.value;
+            ball.style.bottom = (h * 1.5 + 10) + 'px';
+            epDisplay.innerText = (h * 9.8).toFixed(1) + ' J';
+            ekDisplay.innerText = '0.0 J';
+            ball.style.transform = 'scale(1)';
+            ball.style.filter = 'none';
+        });
+
+        function runSimulation() {
+            const h = heightInput.value;
+            if(h <= 0) return;
+            
+            ball.style.transition = 'bottom 0.6s cubic-bezier(.47,0,.74,.71)';
+            ball.style.bottom = '10px';
+            
+            setTimeout(() => {
+                ekDisplay.innerText = (h * 9.8).toFixed(1) + ' J';
+                epDisplay.innerText = '0.0 J';
+                ball.style.transform = 'scale(1.1, 0.9)'; // Efecto de impacto
+                ball.style.filter = 'hue-rotate(90deg)';
+                ball.style.transition = 'all 0.3s ease';
+            }, 600);
+        }
+
+        function resetSimulation() {
+            heightInput.value = 0;
+            ball.style.bottom = '10px';
+            epDisplay.innerText = '0.0 J';
+            ekDisplay.innerText = '0.0 J';
+            ball.style.transform = 'scale(1)';
+            ball.style.filter = 'none';
+        }
+
+        // --- LÓGICA DE INTELIGENCIA ARTIFICIAL ---
+        const apiKey = ""; // La clave se inyecta automáticamente
+
+        async function fetchAI(prompt) {
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }],
-                systemInstruction: { parts: [{ text: systemInstruction }] }
-            };
-
-            // Intentos con espera progresiva
-            for (let i = 0; i < 3; i++) {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        actualizarStatus("online");
-                        return data.candidates?.[0]?.content?.parts?.[0]?.text;
-                    } else {
-                        const errorData = await response.json();
-                        console.error("Error API:", errorData);
-                    }
-                } catch (e) {
-                    console.error("Error de conexión intento " + (i+1), e);
-                }
-                await new Promise(r => setTimeout(r, 1000 * (i + 1)));
-            }
-            actualizarStatus("offline");
-            return null;
-        }
-
-        function actualizarStatus(tipo) {
-            const dot = document.getElementById('status-dot');
-            const text = document.getElementById('status-text');
-            const help = document.getElementById('tech-help');
-
-            if(tipo === "online") {
-                dot.className = "w-2 h-2 bg-green-400 rounded-full";
-                text.innerText = "IA Conectada";
-                help.classList.add('hidden');
-            } else {
-                dot.className = "w-2 h-2 bg-red-500 rounded-full animate-pulse";
-                text.innerText = "Error de red";
-                help.classList.remove('hidden');
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }],
+                        systemInstruction: { parts: [{ text: "Eres un tutor de física amigable para estudiantes de secundaria. Explica energía, calor y trabajo con ejemplos prácticos. Sé breve y usa emojis." }] }
+                    })
+                });
+                const data = await response.json();
+                return data.candidates?.[0]?.content?.parts?.[0]?.text;
+            } catch (error) {
+                return "⚠️ Ups, parece que hay un problema de conexión. Si estás viendo esto localmente, recuerda que la IA solo funciona en GitHub Pages o Netlify.";
             }
         }
 
-        function appendMessage(text, role, isError = false) {
-            const container = document.getElementById('chat-messages');
+        function addChatMessage(text, isUser) {
+            const chatBox = document.getElementById('chat-box');
             const div = document.createElement('div');
-            div.className = `flex gap-2 chat-enter ${role === 'user' ? 'flex-row-reverse' : ''}`;
+            div.className = `animate-up flex gap-3 ${isUser ? 'flex-row-reverse' : ''}`;
             
-            const contentClass = isError 
-                ? 'bg-red-50 border-red-200 text-red-800' 
-                : (role === 'user' ? 'bg-indigo-600 text-white rounded-tr-none' : 'bg-white border border-slate-200 text-slate-700 rounded-tl-none shadow-sm');
+            const colorClass = isUser ? 'bg-indigo-600 text-white rounded-tr-none' : 'bg-white border border-slate-200 text-slate-700 rounded-tl-none shadow-sm';
             
             div.innerHTML = `
-                <div class="${contentClass} p-3 rounded-2xl text-sm max-w-[90%]">
-                    <div class="whitespace-pre-wrap">${text}</div>
-                    ${isError ? `<button onclick="enviarMensaje(true)" class="mt-2 text-xs font-bold underline block">Reintentar</button>` : ''}
+                <div class="${colorClass} p-4 rounded-2xl text-xs max-w-[85%] leading-relaxed shadow-sm">
+                    ${text.replace(/\n/g, '<br>')}
                 </div>
             `;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        let lastPrompt = "";
-        async function enviarMensaje(retry = false) {
-            const input = document.getElementById('user-input');
-            const text = retry ? lastPrompt : input.value.trim();
-            if (!text) return;
+        async function sendMessage() {
+            const input = document.getElementById('user-msg');
+            const message = input.value.trim();
+            if(!message) return;
 
-            if (!retry) {
-                appendMessage(text, 'user');
-                lastPrompt = text;
-                input.value = '';
-            }
+            addChatMessage(message, true);
+            input.value = '';
             
-            document.getElementById('loading-indicator').classList.remove('hidden');
+            const loader = document.getElementById('ai-typing');
+            loader.classList.remove('hidden');
 
-            const res = await fetchGemini(text, "Eres un tutor de física. Sé breve, usa emojis y explica con ejemplos simples de energía, calor o trabajo.");
+            const aiResponse = await fetchAI(message);
             
-            document.getElementById('loading-indicator').classList.add('hidden');
-
-            if (res) {
-                appendMessage(res, 'bot');
-            } else {
-                appendMessage("No puedo conectar con el servidor de IA. Revisa la 'Guía de Solución' que apareció a la izquierda.", 'bot', true);
-            }
+            loader.classList.add('hidden');
+            addChatMessage(aiResponse, false);
         }
 
-        async function generarDesafio() {
-            document.getElementById('loading-indicator').classList.remove('hidden');
-            const res = await fetchGemini("Genera un reto corto de física sobre energía para un alumno.", "Eres un profesor creativo.");
-            document.getElementById('loading-indicator').classList.add('hidden');
-            if (res) appendMessage("🚀 **RETO PARA TI:**\n" + res, 'bot');
-            else appendMessage("Error al conectar. No pude generar el reto.", 'bot', true);
+        function clearChat() {
+            document.getElementById('chat-box').innerHTML = '';
+            addChatMessage("Chat reiniciado. ¿En qué más puedo ayudarte?", false);
         }
 
-        // Prueba inicial
-        window.addEventListener('load', () => {
-            fetchGemini("hola", "responde solo ok").then(r => {
-                if(r) actualizarStatus("online");
-                else actualizarStatus("offline");
+        // Verificación inicial de conexión
+        window.onload = () => {
+            fetchAI("hola").then(res => {
+                if(!res) {
+                    document.getElementById('status-dot').className = "w-2.5 h-2.5 bg-red-500 rounded-full";
+                    document.getElementById('status-text').innerText = "Modo Offline (Sin IA)";
+                }
             });
-        });
+        };
     </script>
 </body>
 </html>
