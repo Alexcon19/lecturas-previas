@@ -3,154 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FísicaInteractiva Pro - Laboratorio Virtual</title>
+    <title>Física Interactiva - Laboratorio IA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        .gradient-bg { background: linear-gradient(135deg, #312e81 0%, #1e1b4b 100%); }
-        .glass-card { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px); }
+        .gradient-bg { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
-        @keyframes slideUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .animate-up { animation: slideUp 0.3s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeIn 0.4s ease-out forwards; }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-900 font-sans min-h-screen">
+<body class="bg-slate-50 text-slate-900 font-sans min-h-screen">
 
-    <!-- Header Optimizado para Web -->
-    <header class="gradient-bg text-white py-6 px-6 shadow-xl relative">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <header class="gradient-bg text-white py-6 shadow-2xl">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-4">
-                <div class="bg-yellow-400 p-2 rounded-lg shadow-[0_0_15px_rgba(250,204,21,0.4)]">
-                    <i data-lucide="zap" class="text-indigo-900 fill-indigo-900"></i>
+                <div class="bg-indigo-500 p-2 rounded-xl shadow-lg">
+                    <i data-lucide="zap" class="w-6 h-6 text-white"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-black tracking-tight">FÍSICA INTERACTIVA 2.0</h1>
-                    <p class="text-indigo-200 text-xs uppercase tracking-widest font-bold">Laboratorio de Energía y Trabajo</p>
+                    <h1 class="text-2xl font-black tracking-tight uppercase">Laboratorio de Física</h1>
+                    <p class="text-indigo-200 text-[10px] font-bold uppercase tracking-[0.2em]">Energía • Calor • Trabajo</p>
                 </div>
             </div>
-            <div id="status-indicator" class="flex items-center gap-2 bg-black/20 px-4 py-2 rounded-full border border-white/10">
-                <div id="status-dot" class="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse"></div>
-                <span id="status-text" class="text-[10px] font-bold uppercase">Sistema Listo (GitHub Pages)</span>
+            <div id="connection-status" class="bg-white/10 px-4 py-2 rounded-full border border-white/20 flex items-center gap-3">
+                <span id="status-dot" class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                </span>
+                <span id="status-text" class="text-[10px] font-bold uppercase tracking-widest text-indigo-100">Verificando IA...</span>
             </div>
         </div>
     </header>
 
     <main class="container mx-auto p-4 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <!-- Área de Experimentos (Izquierda) -->
-        <div class="lg:col-span-7 space-y-6">
-            
-            <!-- Simulador de Energía -->
-            <section class="glass-card p-6 rounded-2xl shadow-lg border border-slate-200">
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
-                        <i data-lucide="gauge" class="text-indigo-600"></i> Simulación Cinética
+        <!-- Panel de Teoría y Desafíos -->
+        <div class="lg:col-span-7 space-y-6 animate-in">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-b-4 border-yellow-400">
+                    <i data-lucide="battery-charging" class="text-yellow-500 mb-3"></i>
+                    <h3 class="font-bold text-sm">Energía</h3>
+                    <p class="text-[11px] text-slate-500 mt-1">Capacidad para transformar o mover objetos.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-b-4 border-red-400">
+                    <i data-lucide="thermometer-sun" class="text-red-500 mb-3"></i>
+                    <h3 class="font-bold text-sm">Calor</h3>
+                    <p class="text-[11px] text-slate-500 mt-1">Energía térmica fluyendo entre cuerpos.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-b-4 border-blue-400">
+                    <i data-lucide="cog" class="text-blue-500 mb-3"></i>
+                    <h3 class="font-bold text-sm">Trabajo</h3>
+                    <p class="text-[11px] text-slate-500 mt-1">Fuerza aplicada que genera desplazamiento.</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-100 relative overflow-hidden">
+                <div class="relative z-10">
+                    <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="lightbulb" class="text-indigo-600"></i> ¿Listo para un reto?
                     </h2>
-                    <div class="flex gap-2">
-                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-md text-[10px] font-bold">m = 1.0 kg</span>
-                        <span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-md text-[10px] font-bold">g = 9.8 m/s²</span>
-                    </div>
+                    <p class="text-sm text-slate-600 mb-6">Presiona el botón para que la IA genere un problema práctico basado en situaciones reales.</p>
+                    <button onclick="generarDesafio()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-2xl font-bold text-sm transition-all shadow-lg active:scale-95 flex items-center gap-3">
+                        <i data-lucide="sparkles" class="w-5 h-5"></i> GENERAR DESAFÍO IA
+                    </button>
                 </div>
-
-                <div class="bg-slate-900 rounded-2xl p-8 text-white">
-                    <div class="grid grid-cols-2 gap-4 mb-8">
-                        <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                            <span class="text-[10px] text-slate-400 uppercase font-bold">Energía Potencial</span>
-                            <div id="ep-display" class="text-3xl font-mono text-blue-400">0.0 J</div>
-                        </div>
-                        <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                            <span class="text-[10px] text-slate-400 uppercase font-bold">Energía Cinética</span>
-                            <div id="ek-display" class="text-3xl font-mono text-yellow-400">0.0 J</div>
-                        </div>
-                    </div>
-                    
-                    <div class="h-48 bg-slate-800 rounded-xl relative flex items-end justify-center border-b-4 border-indigo-500 overflow-hidden">
-                        <!-- Guía de altura -->
-                        <div class="absolute left-4 top-0 bottom-0 w-px bg-slate-700 flex flex-col justify-between text-[10px] text-slate-500 py-2">
-                            <span>10m</span><span>5m</span><span>0m</span>
-                        </div>
-                        <div id="ball" class="w-12 h-12 bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-full absolute transition-all duration-300 shadow-[0_0_30px_rgba(99,102,241,0.4)]" style="bottom: 10px;"></div>
-                    </div>
-
-                    <div class="mt-8 space-y-6">
-                        <input type="range" id="height-input" min="0" max="100" value="0" 
-                            class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-                        
-                        <div class="flex gap-3">
-                            <button onclick="runSimulation()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 py-4 rounded-xl font-bold transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2">
-                                <i data-lucide="play" class="w-5 h-5"></i> INICIAR CAÍDA
-                            </button>
-                            <button onclick="resetSimulation()" class="bg-slate-700 hover:bg-slate-600 px-6 rounded-xl transition">
-                                <i data-lucide="refresh-ccw" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
+                <div class="absolute right-0 bottom-0 opacity-5">
+                    <i data-lucide="atom" class="w-48 h-48"></i>
                 </div>
-            </section>
+            </div>
 
-            <!-- Bloques Informativos -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
-                    <h3 class="font-bold text-slate-800 flex items-center gap-2 mb-2 italic">
-                        <i data-lucide="info" class="w-4 h-4 text-indigo-500"></i> ¿Qué observar?
-                    </h3>
-                    <p class="text-xs text-slate-500 leading-relaxed">
-                        Observa cómo la <strong>Energía Potencial</strong> (azul) disminuye mientras la <strong>Cinética</strong> (amarilla) aumenta. ¡La energía total siempre es la misma!
-                    </p>
-                </div>
-                <div class="bg-indigo-600 p-5 rounded-xl shadow-lg text-white">
-                    <h3 class="font-bold flex items-center gap-2 mb-2 italic">
-                        <i data-lucide="help-circle" class="w-4 h-4 text-indigo-200"></i> Reto para clase
-                    </h3>
-                    <p class="text-xs text-indigo-100 leading-relaxed font-medium">
-                        ¿A qué altura la Energía Cinética es exactamente igual a la Energía Potencial? Usa el chat para descubrirlo.
-                    </p>
+            <div class="bg-indigo-900 rounded-3xl p-8 text-white shadow-2xl">
+                <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                    <i data-lucide="image" class="text-indigo-400"></i> Ayuda Visual
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <div class="aspect-video bg-slate-800 rounded-xl flex items-center justify-center border border-slate-700">
+                            <span class="text-[10px] uppercase font-bold text-slate-500">[Image of kinetic and potential energy examples]</span>
+                        </div>
+                        <p class="text-[10px] text-indigo-300 italic text-center text-balance">Ejemplos de energía cinética y potencial en la vida diaria.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="aspect-video bg-slate-800 rounded-xl flex items-center justify-center border border-slate-700">
+                            <span class="text-[10px] uppercase font-bold text-slate-500">[Image of heat transfer conduction convection radiation]</span>
+                        </div>
+                        <p class="text-[10px] text-indigo-300 italic text-center text-balance">Mecanismos de transferencia de calor: conducción, convección y radiación.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Chat con Tutor IA (Derecha) -->
-        <div class="lg:col-span-5">
-            <div class="glass-card rounded-2xl shadow-xl flex flex-col h-[650px] border border-slate-200 overflow-hidden sticky top-8">
-                <div class="bg-slate-50 p-5 border-b border-slate-100 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                            <i data-lucide="bot" class="text-indigo-600"></i>
+        <!-- Chat Tutor (Derecha) -->
+        <div class="lg:col-span-5 animate-in" style="animation-delay: 0.2s">
+            <div class="glass-card rounded-[2.5rem] shadow-2xl flex flex-col h-[700px] border border-white overflow-hidden sticky top-8">
+                <div class="bg-slate-900 p-6 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                            <i data-lucide="bot" class="text-white w-7 h-7"></i>
                         </div>
                         <div>
-                            <span class="font-bold text-slate-800 block text-sm">Tutor Newton</span>
-                            <span class="text-[9px] text-green-500 font-bold uppercase tracking-widest">IA en tiempo real</span>
-                        </div>
-                    </div>
-                    <button onclick="clearChat()" class="text-slate-400 hover:text-red-500 transition">
-                        <i data-lucide="trash-2" class="w-4 h-4"></i>
-                    </button>
-                </div>
-
-                <div id="chat-box" class="flex-1 p-5 overflow-y-auto space-y-4 bg-slate-50/50 custom-scrollbar">
-                    <!-- Mensaje Inicial -->
-                    <div class="animate-up flex gap-3">
-                        <div class="bg-white border border-slate-200 p-4 rounded-2xl rounded-tl-none text-xs text-slate-700 shadow-sm max-w-[85%] leading-relaxed">
-                            ¡Hola! Soy tu asistente virtual. He sido configurado para ayudarte a entender las leyes de la física. 🍎
-                            <br><br>
-                            ¿Tienes alguna duda sobre el experimento de la izquierda o alguna fórmula?
+                            <h3 class="font-black text-white text-sm tracking-tight">TUTOR NEWTON IA</h3>
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-[9px] text-indigo-300 font-bold uppercase tracking-widest">En línea ahora</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="ai-typing" class="hidden px-5 py-2 text-[10px] text-indigo-500 font-bold animate-pulse italic">
-                    Newton está redactando una explicación...
+                <div id="chat-box" class="flex-1 p-6 overflow-y-auto space-y-6 bg-slate-50/50 custom-scrollbar">
+                    <div class="flex gap-3">
+                        <div class="bg-white border border-slate-200 p-5 rounded-3xl rounded-tl-none text-sm text-slate-700 shadow-sm max-w-[90%] leading-relaxed">
+                            ¡Hola! Soy tu tutor de física. 🧪<br><br>
+                            Puedo ayudarte con tus dudas sobre <b>energía, calor o trabajo</b>. ¿Qué concepto te gustaría explorar hoy?
+                        </div>
+                    </div>
                 </div>
 
-                <div class="p-5 bg-white border-t border-slate-100">
-                    <div class="flex gap-2">
+                <div id="ai-status" class="hidden px-6 py-2 bg-indigo-50 text-[10px] text-indigo-600 font-bold italic border-y border-indigo-100">
+                    <span class="animate-pulse">Newton está analizando tu consulta...</span>
+                </div>
+
+                <div class="p-6 bg-white border-t border-slate-100">
+                    <div class="flex gap-3">
                         <input type="text" id="user-msg" 
-                            class="flex-1 px-4 py-3 bg-slate-100 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 text-xs outline-none transition-all shadow-inner"
-                            placeholder="Escribe tu pregunta aquí..."
+                            class="flex-1 px-6 py-4 bg-slate-100 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500 text-sm outline-none transition-all shadow-inner"
+                            placeholder="Haz una pregunta aquí..."
                             onkeypress="if(event.key==='Enter') sendMessage()">
-                        <button onclick="sendMessage()" class="bg-indigo-600 text-white p-3 rounded-xl hover:bg-indigo-700 shadow-md active:scale-90 transition">
-                            <i data-lucide="send" class="w-5 h-5"></i>
+                        <button onclick="sendMessage()" class="bg-indigo-600 text-white p-4 rounded-2xl hover:bg-indigo-700 shadow-xl active:scale-90 transition-all">
+                            <i data-lucide="send" class="w-6 h-6"></i>
                         </button>
                     </div>
                 </div>
@@ -161,113 +144,99 @@
     <script>
         lucide.createIcons();
 
-        // --- LÓGICA DE SIMULACIÓN ---
-        const ball = document.getElementById('ball');
-        const heightInput = document.getElementById('height-input');
-        const epDisplay = document.getElementById('ep-display');
-        const ekDisplay = document.getElementById('ek-display');
+        // IMPORTANTE: En el entorno de despliegue, la API Key se maneja automáticamente.
+        // Si sale "Offline", es que la comunicación con el servidor de Google falló temporalmente.
+        const apiKey = ""; 
 
-        heightInput.addEventListener('input', () => {
-            const h = heightInput.value;
-            ball.style.bottom = (h * 1.5 + 10) + 'px';
-            epDisplay.innerText = (h * 9.8).toFixed(1) + ' J';
-            ekDisplay.innerText = '0.0 J';
-            ball.style.transform = 'scale(1)';
-            ball.style.filter = 'none';
-        });
-
-        function runSimulation() {
-            const h = heightInput.value;
-            if(h <= 0) return;
-            
-            ball.style.transition = 'bottom 0.6s cubic-bezier(.47,0,.74,.71)';
-            ball.style.bottom = '10px';
-            
-            setTimeout(() => {
-                ekDisplay.innerText = (h * 9.8).toFixed(1) + ' J';
-                epDisplay.innerText = '0.0 J';
-                ball.style.transform = 'scale(1.1, 0.9)'; // Efecto de impacto
-                ball.style.filter = 'hue-rotate(90deg)';
-                ball.style.transition = 'all 0.3s ease';
-            }, 600);
-        }
-
-        function resetSimulation() {
-            heightInput.value = 0;
-            ball.style.bottom = '10px';
-            epDisplay.innerText = '0.0 J';
-            ekDisplay.innerText = '0.0 J';
-            ball.style.transform = 'scale(1)';
-            ball.style.filter = 'none';
-        }
-
-        // --- LÓGICA DE INTELIGENCIA ARTIFICIAL ---
-        const apiKey = ""; // La clave se inyecta automáticamente
-
-        async function fetchAI(prompt) {
+        async function fetchAI(prompt, systemMsg) {
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }],
-                        systemInstruction: { parts: [{ text: "Eres un tutor de física amigable para estudiantes de secundaria. Explica energía, calor y trabajo con ejemplos prácticos. Sé breve y usa emojis." }] }
-                    })
-                });
-                const data = await response.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text;
-            } catch (error) {
-                return "⚠️ Ups, parece que hay un problema de conexión. Si estás viendo esto localmente, recuerda que la IA solo funciona en GitHub Pages o Netlify.";
+            
+            // Reintentos con Exponential Backoff para evitar el "Modo Offline" por saturación
+            for (let i = 0; i < 3; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }],
+                            systemInstruction: { parts: [{ text: systemMsg }] }
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        return data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    }
+                } catch (e) {
+                    console.log("Reintentando conexión...");
+                }
+                await new Promise(r => setTimeout(r, Math.pow(2, i) * 1000));
             }
+            return null;
         }
 
-        function addChatMessage(text, isUser) {
+        function addMessage(text, isUser) {
             const chatBox = document.getElementById('chat-box');
             const div = document.createElement('div');
-            div.className = `animate-up flex gap-3 ${isUser ? 'flex-row-reverse' : ''}`;
+            div.className = `flex gap-3 ${isUser ? 'flex-row-reverse' : ''} animate-in`;
+            const style = isUser ? 'bg-indigo-600 text-white rounded-tr-none' : 'bg-white border border-slate-200 text-slate-700 rounded-tl-none shadow-sm';
             
-            const colorClass = isUser ? 'bg-indigo-600 text-white rounded-tr-none' : 'bg-white border border-slate-200 text-slate-700 rounded-tl-none shadow-sm';
-            
-            div.innerHTML = `
-                <div class="${colorClass} p-4 rounded-2xl text-xs max-w-[85%] leading-relaxed shadow-sm">
-                    ${text.replace(/\n/g, '<br>')}
-                </div>
-            `;
+            div.innerHTML = `<div class="${style} p-5 rounded-3xl text-sm max-w-[85%] shadow-sm whitespace-pre-wrap">${text}</div>`;
             chatBox.appendChild(div);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         async function sendMessage() {
             const input = document.getElementById('user-msg');
-            const message = input.value.trim();
-            if(!message) return;
+            const msg = input.value.trim();
+            if (!msg) return;
 
-            addChatMessage(message, true);
+            addMessage(msg, true);
             input.value = '';
             
-            const loader = document.getElementById('ai-typing');
-            loader.classList.remove('hidden');
+            const status = document.getElementById('ai-status');
+            status.classList.remove('hidden');
 
-            const aiResponse = await fetchAI(message);
+            const system = "Eres el Tutor Newton. Explica física de forma sencilla para secundaria. Usa negritas para conceptos importantes y emojis. No des respuestas largas.";
+            const res = await fetchAI(msg, system);
             
-            loader.classList.add('hidden');
-            addChatMessage(aiResponse, false);
+            status.classList.add('hidden');
+            if (res) {
+                addMessage(res, false);
+            } else {
+                addMessage("⚠️ Lo siento, no pude conectarme con mi servidor. Por favor, verifica tu conexión a internet e inténtalo de nuevo.", false);
+            }
         }
 
-        function clearChat() {
-            document.getElementById('chat-box').innerHTML = '';
-            addChatMessage("Chat reiniciado. ¿En qué más puedo ayudarte?", false);
+        async function generarDesafio() {
+            const status = document.getElementById('ai-status');
+            status.classList.remove('hidden');
+            
+            const res = await fetchAI("Genera un desafío corto y divertido de física sobre energía para un alumno de secundaria.", "Eres un profesor de física creativo.");
+            
+            status.classList.add('hidden');
+            if (res) {
+                addMessage("🚀 **NUEVO DESAFÍO:**\n\n" + res, false);
+            }
         }
 
-        // Verificación inicial de conexión
-        window.onload = () => {
-            fetchAI("hola").then(res => {
-                if(!res) {
-                    document.getElementById('status-dot').className = "w-2.5 h-2.5 bg-red-500 rounded-full";
-                    document.getElementById('status-text').innerText = "Modo Offline (Sin IA)";
-                }
-            });
+        // Verificación de salud inicial
+        window.onload = async () => {
+            const dot = document.getElementById('status-dot');
+            const text = document.getElementById('status-text');
+            
+            const test = await fetchAI("hola", "responde solo con la palabra 'online'");
+            if (test) {
+                dot.children[0].className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75";
+                dot.children[1].className = "relative inline-flex rounded-full h-3 w-3 bg-green-500";
+                text.innerText = "IA Conectada";
+                text.className = "text-[10px] font-bold uppercase tracking-widest text-green-400";
+            } else {
+                dot.children[0].className = "absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75";
+                dot.children[1].className = "relative inline-flex rounded-full h-3 w-3 bg-red-500";
+                text.innerText = "Error de Conexión";
+                text.className = "text-[10px] font-bold uppercase tracking-widest text-red-400";
+            }
         };
     </script>
 </body>
